@@ -32,8 +32,12 @@ showdata()
 
 async function borderAnimation() {
   var productsTarget = document.getElementById('app')
-  let cardElement = document.querySelectorAll('.cardProduct');
-  
+  var cardElement = document.querySelectorAll('.cardProduct');
+
+
+  // productsTarget.addEventListener('mouseenter', function() {
+  //   animation.pause
+  // })
   anime({
     targets: '.cardProduct',
     easing: 'linear',
@@ -42,7 +46,7 @@ async function borderAnimation() {
       {borderColor: '#ccc'},
     ],
     delay: function(el, i, l) {
-      return i * 1000
+      return i * 2000
     },
     loop: true
   })
