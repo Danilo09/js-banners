@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Rubik', sans-serif;
+}
+p {
+    margin: 0;
+}
+section {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-content: space-around;
+    position: relative;
+}
+.container {
+    position: relative;
+    display: flex;
+    width: 300px;
+    overflow: hidden;
+}
+#app {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 600px;
+    position: relative;
+    background-color: #ccc;
+    overflow: hidden;
+}
+
+.solid {
+    position: absolute;
+    height: 0px;
+    background: #fcda16;
+    bottom: 0px;
+    width: 311px;
+    left: 0px;
+    z-index: 99;
+}
+
+.mainContent {
+    z-index: 99;
+    width: 300px;
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    animation: breath 10s linear infinite;
+}
+
+@keyframes breath {
+    100% { background-size: 350% }
+    0%   { background-size: 300% }
+}
+
+.topContent {
+    height: 65px;
+    position: absolute;
+    top: 0px;
+    padding-left: 35px;
+    z-index: 9999;
+}
+
+
+.logoCompany {
+    background-color: #fcda16;
+    width: 134px;
+    height: 65px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.locationContent {
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden;
+    bottom: 183px;
+    left: 30px;
+}
+
+.locationContent .country {
+    background-color: #FFF;
+    overflow: hidden;
+}
+
+.locationContent .country .nameCountry {
+    padding: 0px 10px;
+}
+
+.locationContent .country {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.locationContent .city {
+    background-color: #fcda16;
+    overflow: hidden;
+}
+
+.locationContent .city .nameCity{ 
+    padding: 0px 10px;
+    font-size: 45px;
+    line-height: 1;
+}
+
+.priceContent {
+    display: flex;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    color: #fcda16;
+    overflow: hidden;
+    position: absolute;
+    bottom: 119px;
+    right: 91px;
+    line-height: 1;
+}
+.priceContent .from { 
+    font-size: 15px;
+}
+.priceContent .price {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.buyContent {
+    display: flex;
+    align-items: flex-start;
+    position: absolute;
+    bottom: 72px;
+    right: 48px;
+}
+
+.buyContent .buy {
+    background-color: #FFFFFF;
+    font-size: 15px;
+    padding: 14px 46px 14px 30px;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0px;
+    font-weight: 600;
+}
+
+.buyContent .buy::before {
+    content: "";
+    position: absolute;
+    width: 74px;
+    height: 3px;
+    background-color: #fcda16;
+    top: 21px;
+    left: -58px;
+}
+.buyContent .buy::after {
+    content: "";
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid #fcda16;
+    font-size: 0px;
+    position: absolute;
+    right: 30px;
+    top: 18px;
+}
+
+
+
+
+
+
+
+
+
+
