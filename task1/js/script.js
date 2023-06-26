@@ -1,87 +1,52 @@
 async function showdata() {
-  var queryURL = "https://rekrutacja.webdeveloper.rtbhouse.net/files/banner.json";
-  
-  const responseData = await fetch(queryURL)
-  const jsonData = await responseData.json()
-  const sliceData = jsonData.offers.slice(0,4)
-  displayProducts(sliceData)
-  borderAnimation()
+  const queryURL =
+    "https://rekrutacja.webdeveloper.rtbhouse.net/files/banner.json";
+
+  const responseData = await fetch(queryURL);
+  const jsonData = await responseData.json();
+  const sliceData = jsonData.offers.slice(0, 4);
+  displayProducts(sliceData);
 }
 
 function displayProducts(result) {
-  // console.log(result)
-
-  result.forEach(product => {
+  result.forEach(({ imgURL, price, currency, name }) => {
     const content = `
       <div class="cardProduct">
         <div class="imageProduct">
-          <img src="${product.imgURL}"/>
+          <img src="${imgURL}" alt="${name}"/>
         </div>
         <div class="priceProduct">
-          <span>${product.price}</span>
-          <span>${product.currency}</span>
+          <span>${price}</span>
+          <span>${currency}</span>
         </div>
       </div>
-    `
-    document.getElementById('app').insertAdjacentHTML('beforeend', content)
-  })
-  
+    `;
+    document.getElementById("app").insertAdjacentHTML("beforeend", content);
+  });
+
+  borderAnimation();
 }
 
-showdata() 
+showdata();
 
 async function borderAnimation() {
-  var productsTarget = document.getElementById('app')
-  var cardElement = document.querySelectorAll('.cardProduct');
+  const productsTarget = document.getElementById("app");
 
-
-  // productsTarget.addEventListener('mouseenter', function() {
-  //   animation.pause
-  // })
-  anime({
-    targets: '.cardProduct',
-    easing: 'linear',
-    keyframes: [
-      {borderColor: '#f00'},
-      {borderColor: '#ccc'},
-    ],
-    delay: function(el, i, l) {
-      return i * 2000
+  const firstAnimation = anime({
+    targets: ".cardProduct",
+    easing: "linear",
+    keyframes: [{ borderColor: "#f00" }, { borderColor: "#ccc" }],
+    delay: function (_, i, _) {
+      return i * 2000;
     },
-    loop: true
-  })
+    loop: true,
+  });
 
-  var animation = anime({
-      targets: '.cardProduct',
-      easing: 'linear',
-      keyframes: [
-        {borderColor: '#f00'},
-        {borderColor: '#ccc'},
-      ],
-      delay: function(el, i, l) {
-        return i * 1000
-      },
-      loop: true
-    })
+  productsTarget.addEventListener("mouseenter", function () {
+    firstAnimation.pause();
+  });
 
-    cardElement.forEach(el => {
-        el.addEventListener('mouseenter', (event) => {
-          anime({
-            targets: el,
-            borderColor: ['#000'],
-          })
-      }),
-
-        el.addEventListener('mouseleave', (event) => {
-          anime({
-            targets: el,
-            borderColor: ['#ccc'],
-          })
-        })
-      }
-    )
+  productsTarget.addEventListener("mouseleave", function () {
+    firstAnimation.play();
+  });
 }
-
-
-
-

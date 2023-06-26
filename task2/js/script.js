@@ -6,7 +6,7 @@ async function showdata() {
   let selectedRandomProducts = shuffled.slice(0, 3);
 
   displayProducts(selectedRandomProducts)
-  sliderAnimation()
+  
 }
 
 function displayProducts(result) {
@@ -32,11 +32,10 @@ function displayProducts(result) {
     document.getElementById('app').insertAdjacentHTML('beforeend', content)
   })
   
+  sliderAnimation()
 }
 
 showdata() 
-
-
 
 
 let productIndex = 0;
@@ -57,3 +56,5 @@ function sliderAnimation() {
 
   setTimeout(sliderAnimation, 4000); 
 }
+
+
