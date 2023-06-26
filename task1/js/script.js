@@ -4,8 +4,9 @@ async function showdata() {
 
   const responseData = await fetch(queryURL);
   const jsonData = await responseData.json();
-  const sliceData = jsonData.offers.slice(0, 4);
-  displayProducts(sliceData);
+  const shuffled = jsonData.offers.sort(() => 0.5 - Math.random());
+  let selectedRandomProducts = shuffled.slice(0, 4);
+  displayProducts(selectedRandomProducts)
 }
 
 function displayProducts(result) {
