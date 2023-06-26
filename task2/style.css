@@ -77,9 +77,10 @@ section {
 .close-btn {
   position: absolute;
   top: 0;
-  width: 20px;
+  width: 12px;
   right: 5px;
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
+  color: #7a7a7a;
   padding: 3px;
   border-radius: 50%;
   cursor: pointer;
