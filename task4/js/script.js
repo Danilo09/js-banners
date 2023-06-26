@@ -6,7 +6,7 @@ const showdata = async () =>{
 }
   
 const displayProducts = (result) => {
-    result.offers.forEach(({ imgURL, price, currency, priceText, city, country }) => {
+    result.offers.forEach(({ imgURL, country, city, priceText, price, currency }) => {
     const content = `
     <div class="mainContent mySlides fade" style="background-image: url(${imgURL})">
         <div class="locationContent">
@@ -24,7 +24,7 @@ const displayProducts = (result) => {
     `
     document.getElementById('app').insertAdjacentHTML('beforeend', content)
 })
-    animationBanners();
+    firstAnimation();
     showSlides();
     changeSize();
 }
@@ -48,24 +48,10 @@ const showSlides = () => {
     slides[slideIndex-1].style.display = "flex";
     animationBannersSlides()
     dots[slideIndex-1].className += " active";
-    setTimeout(showSlides, 8000);
+    // setTimeout(showSlides, 8000);
 }
 
-const changeSize = () => {
-
-    const lenghtData = document.querySelectorAll('.city');
-
-    lenghtData.forEach((e, i) => {
-        if(e.lastElementChild.innerHTML.length > 13) {
-            e.classList.add('city-opt-content')
-        }
-    })
-    
-}
-
-
-
-const animationBanners = async () => {
+const firstAnimation = async () => {
 
     const appEffect = anime.timeline({
         targets: '#app'
@@ -137,103 +123,140 @@ const animationBanners = async () => {
     blockReveal(solid, container);
 }
 
-const animationBannersSlides = async () =>{
-    const countryEffect = anime.timeline({
-        targets: '.country',
-    })
-    countryEffect
+const animationBannersSlides = async () =>  {
+  const countryEffect = anime.timeline({
+    targets: ".country"
+  });
+
+  countryEffect
     .add({
-        width: 0,
+      width: 0,
     })
-    .add({
-        width: 100 + '%',
+    .add(
+      {
+        width: 100 + "%",
         duration: 2000,
-    },3000)
-    .add({
+      },
+      3000
+    )
+    .add(
+      {
         width: 0,
-    },6000)
+      },
+      6000
+    );
 
-    const nameCountry = anime.timeline({
-        targets: '.nameCountry'
-    }, 10000)
-    nameCountry
+  const nameCountry = anime.timeline(
+    {
+      targets: ".nameCountry",
+    },
+    10000
+  );
+  nameCountry.add(
+    {
+      opacity: 1,
+      duration: 2000,
+      translateY: [
+        { value: 20, duration: 0, delay: 200 },
+        { value: 0, duration: 1000, delay: 1000 },
+        { value: -200, duration: 1000, delay: 500 },
+      ],
+    },
+    3200
+  );
+
+  const cityEffect = anime.timeline({
+    targets: ".city",
+    loop: false,
+  });
+  cityEffect
     .add({
-        opacity: 1,
+      width: 0,
+    })
+    .add(
+      {
+        width: 100 + "%",
         duration: 2000,
-        translateY: [
-            { value: 20, duration: 0, delay: 200 },
-            { value: 0, duration: 1000, delay: 1000 },
-            { value: -200, duration: 1000, delay: 500 }
-        ],
-    }, 3200)
+      },
+      3200
+    )
+    .add(
+      {
+        width: 0,
+      },
+      7000
+    );
 
-    const cityEffect = anime.timeline({
-        targets: '.city',
-        loop: false,
+  const nameCity = anime.timeline({
+    easing: "easeOutExpo",
+    targets: ".nameCity",
+    loop: true,
+  });
+  nameCity.add(
+    {
+      translateY: [
+        { value: 200, duration: 0, delay: 200 },
+        { value: 0, duration: 1200, delay: 1000 },
+        { value: -200, duration: 1000, delay: 500 },
+      ],
+    },
+    3300
+  );
+
+  const priceContent = anime.timeline({
+    easing: "easeOutExpo",
+    targets: [".from", ".price"],
+  });
+  priceContent.add(
+    {
+      translateY: [
+        { value: 200, duration: 0, delay: 500 },
+        { value: 0, duration: 3000, delay: 500 },
+        { value: 200, duration: 5000, delay: 500 },
+      ],
+    },
+    3300
+  );
+
+  const buyContent = anime.timeline({
+    easing: "easeOutExpo",
+    targets: [".buy"],
+  });
+  buyContent.add(
+    {
+      translateX: [
+        { value: 500, duration: 0, delay: 500 },
+        { value: 0, duration: 3000, delay: 5000 },
+      ],
+    },
+  );
+
+  const buyContentBefore = anime.timeline({
+    easing: "easeOutExpo",
+    targets: [".buy:before"],
+  });
+  buyContentBefore.add(
+    {
+      translateX: [
+        { value: -500, duration: 0, delay: 500 },
+        { value: 0, duration: 3000, delay: 500 },
+      ],
+    },
+    3300
+  );
+
+  await buyContent.finished;
+  showSlides();
+}
+
+const changeSize = () => {
+
+    const lenghtData = document.querySelectorAll('.city');
+
+    lenghtData.forEach((e) => {
+        if(e.lastElementChild.innerHTML.length > 13) {
+            e.classList.add('city-opt-content')
+        }
     })
-    cityEffect
-    .add({
-        width: 0
-    })
-    .add({
-        width: 100 + '%',
-        duration: 2000
-    }, 3200)
-    .add({
-        width: 0
-    }, 7000)
-
-
-  
-    const nameCity = anime.timeline({
-        easing: 'easeOutExpo',
-        targets: '.nameCity',
-        loop: true
-    })
-    nameCity
-    .add({
-        translateY: [
-            { value: 200, duration: 0, delay: 200 },
-            { value: 0, duration: 1200, delay: 1000 },
-            { value: -200, duration: 1000, delay: 500 }
-        ],
-    }, 3300)
-
-    const priceContent = anime.timeline({
-        easing: 'easeOutExpo',
-        targets: ['.from', '.price']
-    })
-    priceContent
-    .add({
-        translateY: [
-            { value: 200, duration: 0, delay: 500 },
-            { value: 0, duration: 3000, delay: 500 },
-            { value: 200, duration: 5000, delay: 500 }
-        ],
-    }, 3300)
-
-    const buyContent = anime.timeline({
-        easing: 'easeOutExpo',
-        targets: ['.buy']
-    })
-    buyContent
-    .add({
-        translateX: [
-            { value: 500, duration: 0, delay: 500 },
-            { value: 0, duration: 3000, delay: 500 },
-        ],
-    }, 3300)
-
-    const buyContentBefore = anime.timeline({
-        easing: 'easeOutExpo',
-        targets: ['.buy:before']
-    })
-    buyContentBefore
-    .add({
-        translateX: [
-            { value: -500, duration: 0, delay: 500 },
-            { value: 0, duration: 3000, delay: 500 },
-        ],
-    }, 3300)
-
+    
 }
