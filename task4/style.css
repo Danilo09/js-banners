@@ -88,6 +88,8 @@ section {
 .locationContent .country {
     background-color: #FFF;
     overflow: hidden;
+    max-width: 100px;
+
 }
 
 .locationContent .country .nameCountry {
@@ -137,6 +139,7 @@ section {
     position: absolute;
     bottom: 72px;
     right: 48px;
+    cursor: pointer;
 }
 
 .buyContent .buy {

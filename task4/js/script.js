@@ -3,13 +3,9 @@ async function showdata() {
     const dataResponse = await fetch(queryURL)
     const dataJson = await dataResponse.json()
     displayProducts(dataJson)
-    animationBanners()
-    showSlides();
   }
   
   function displayProducts(result) {
-    console.log(result)
-  
     result.offers.forEach(banner => {
       const content = `
     <div class="mainContent mySlides fade" style="background-image: url(${banner.imgURL})">
@@ -28,6 +24,9 @@ async function showdata() {
       `
       document.getElementById('app').insertAdjacentHTML('beforeend', content)
     })
+
+    animationBanners()
+    showSlides();
   }
   
   showdata() 
@@ -35,8 +34,8 @@ async function showdata() {
 
 
 
-  let slideIndex = 0;
-  
+let slideIndex = 0;
+
 function showSlides() {
     let i;
     let slides = document.getElementsByClassName("mySlides");
@@ -46,13 +45,12 @@ function showSlides() {
     }
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}    
-    for (i = 0; i < slides.length; i++) {
-        slides[i].className = slides[i].className.replace(" active", "");
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
     }
     slides[slideIndex-1].style.display = "flex";
-
-    slides[slideIndex-1].className += " active";
     animationBannersSlides()
+    dots[slideIndex-1].className += " active";
     setTimeout(showSlides, 8000);
   }
 
@@ -87,7 +85,18 @@ async function animationBanners() {
         ],
         easing: 'easeOutExpo',
         loop: false
-        
+    })
+
+    var dotsEffect = anime.timeline({
+        targets: '.dots'
+    })
+    dotsEffect
+    .add({
+        opacity: 0,
+        duration: 3000,
+    })
+    .add({
+        opacity: 1,
     })
 
     let solid = document.querySelector('.solid');
@@ -131,7 +140,7 @@ async function animationBannersSlides() {
         width: 0,
     })
     .add({
-        width: 100,
+        width: 100 + '%',
         duration: 2000,
     },3000)
     .add({
@@ -220,4 +229,5 @@ async function animationBannersSlides() {
             { value: 0, duration: 3000, delay: 500 },
         ],
     }, 3300)
+
 }
