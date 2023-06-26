@@ -1,67 +1,73 @@
-async function showdata() {
-    var queryURL = "https://rekrutacja.webdeveloper.rtbhouse.net/files/banner_vip.json";
+const showdata = async () =>{
+    const queryURL = "https://rekrutacja.webdeveloper.rtbhouse.net/files/banner_vip.json";
     const dataResponse = await fetch(queryURL)
     const dataJson = await dataResponse.json()
     displayProducts(dataJson)
-  }
+}
   
-  function displayProducts(result) {
-    result.offers.forEach(banner => {
-      const content = `
-    <div class="mainContent mySlides fade" style="background-image: url(${banner.imgURL})">
+const displayProducts = (result) => {
+    result.offers.forEach(({ imgURL, price, currency, priceText, city, country }) => {
+    const content = `
+    <div class="mainContent mySlides fade" style="background-image: url(${imgURL})">
         <div class="locationContent">
-            <span class="country"><p class="nameCountry">${banner.country}</p></span>
-            <span class="city"><p class="nameCity">${banner.city}</p></span>
+            <span class="country"><p class="nameCountry">${country}</p></span>
+            <span class="city"><p class="nameCity">${city}</p></span>
         </div>
         <div class="priceContent">
-            <span class="from">${banner.priceText}</span>
-            <span class="price">${banner.price} ${banner.currency}</span>
+            <span class="from">${priceText}</span>
+            <span class="price">${price} ${currency}</span>
         </div>
         <div class="buyContent">
             <a class="buy">Book now</a>
         </div>
     </div>
-      `
-      document.getElementById('app').insertAdjacentHTML('beforeend', content)
-    })
-
-    animationBanners()
+    `
+    document.getElementById('app').insertAdjacentHTML('beforeend', content)
+})
+    animationBanners();
     showSlides();
-  }
+    changeSize();
+}
   
-  showdata() 
-
-
-
+showdata() 
 
 let slideIndex = 0;
 
-function showSlides() {
+const showSlides = () => {
     let i;
     let slides = document.getElementsByClassName("mySlides");
     let dots = document.getElementsByClassName("dot");
-    for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";  
-    }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";  
+        }
     slideIndex++;
     if (slideIndex > slides.length) {slideIndex = 1}    
-    for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-    }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
     slides[slideIndex-1].style.display = "flex";
     animationBannersSlides()
     dots[slideIndex-1].className += " active";
     setTimeout(showSlides, 8000);
-  }
+}
+
+const changeSize = () => {
+
+    const lenghtData = document.querySelectorAll('.city');
+
+    lenghtData.forEach((e, i) => {
+        if(e.lastElementChild.innerHTML.length > 13) {
+            e.classList.add('city-opt-content')
+        }
+    })
+    
+}
 
 
 
+const animationBanners = async () => {
 
-
-
-async function animationBanners() {
-
-    var appEffect = anime.timeline({
+    const appEffect = anime.timeline({
         targets: '#app'
     })
     appEffect
@@ -87,7 +93,7 @@ async function animationBanners() {
         loop: false
     })
 
-    var dotsEffect = anime.timeline({
+    const dotsEffect = anime.timeline({
         targets: '.dots'
     })
     dotsEffect
@@ -131,8 +137,8 @@ async function animationBanners() {
     blockReveal(solid, container);
 }
 
-async function animationBannersSlides() {
-    var countryEffect = anime.timeline({
+const animationBannersSlides = async () =>{
+    const countryEffect = anime.timeline({
         targets: '.country',
     })
     countryEffect
@@ -147,7 +153,7 @@ async function animationBannersSlides() {
         width: 0,
     },6000)
 
-    var nameCountry = anime.timeline({
+    const nameCountry = anime.timeline({
         targets: '.nameCountry'
     }, 10000)
     nameCountry
@@ -161,7 +167,7 @@ async function animationBannersSlides() {
         ],
     }, 3200)
 
-    var cityEffect = anime.timeline({
+    const cityEffect = anime.timeline({
         targets: '.city',
         loop: false,
     })
@@ -179,7 +185,7 @@ async function animationBannersSlides() {
 
 
   
-    var nameCity = anime.timeline({
+    const nameCity = anime.timeline({
         easing: 'easeOutExpo',
         targets: '.nameCity',
         loop: true
@@ -193,7 +199,7 @@ async function animationBannersSlides() {
         ],
     }, 3300)
 
-    var priceContent = anime.timeline({
+    const priceContent = anime.timeline({
         easing: 'easeOutExpo',
         targets: ['.from', '.price']
     })
@@ -206,7 +212,7 @@ async function animationBannersSlides() {
         ],
     }, 3300)
 
-    var buyContent = anime.timeline({
+    const buyContent = anime.timeline({
         easing: 'easeOutExpo',
         targets: ['.buy']
     })
@@ -218,7 +224,7 @@ async function animationBannersSlides() {
         ],
     }, 3300)
 
-    var buyContentBefore = anime.timeline({
+    const buyContentBefore = anime.timeline({
         easing: 'easeOutExpo',
         targets: ['.buy:before']
     })

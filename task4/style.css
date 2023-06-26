@@ -83,6 +83,7 @@ section {
     overflow: hidden;
     bottom: 183px;
     left: 30px;
+    width: 80%;
 }
 
 .locationContent .country {
@@ -104,6 +105,15 @@ section {
 .locationContent .city {
     background-color: #fcda16;
     overflow: hidden;
+    max-width: 183px;
+}
+
+.locationContent .city-opt-content .nameCity {
+    font-size: 30px !important;
+}
+
+.locationContent .city-opt-content {
+    max-width: 220px;
 }
 
 .locationContent .city .nameCity{ 
