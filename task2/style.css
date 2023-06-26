@@ -74,5 +74,20 @@ section {
   max-height: 210px;
 }
 
+.close-btn {
+  position: absolute;
+  top: 0;
+  width: 20px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 3px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 400ms ease;
+  z-index: 99999;
+}
 
-
+.container {
+  position: relative;
+  margin-top: 10px;
+}

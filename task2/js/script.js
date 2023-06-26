@@ -58,3 +58,11 @@ function sliderAnimation() {
 }
 
 
+const closeBtn = document.querySelector(".close-btn");
+const container = document.querySelector(".container");
+const logoCompany = document.querySelector(".logoCompany");
+
+closeBtn.addEventListener("click", () => {
+  container.style.display = "none";
+  logoCompany.style.display = "none";
+});
